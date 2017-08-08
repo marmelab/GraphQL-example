@@ -1,0 +1,4 @@
+{
+    "presets": [["env", { "targets": { "node": "current" } }], "stage-3"],
+    "plugins": ["add-module-exports"]
+}
