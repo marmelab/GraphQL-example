@@ -5,7 +5,7 @@ import Base from '../base';
 const Tweet = `
 extend type Query {
     Tweet(id: ID!): Tweet
-    Tweets(limit: Int, sort_field: String, sort_order: String): [Tweet]
+    Tweets(limit: Int, skip: Int, sort_field: String, sort_order: String): [Tweet]
     TweetsMeta: Meta
 }
 extend type Mutation {

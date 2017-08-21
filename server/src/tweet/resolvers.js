@@ -1,5 +1,10 @@
 export const Query = {
-    Tweets: (_, __, context) => Promise.resolve(context.datastore.tweets.sort((a, b) => a - b)),
+    Tweets: (_, { limit = 5, skip = 0 }, context) =>
+        Promise.resolve(
+            context.datastore.tweets
+                .sort((a, b) => a - b)
+                .slice(skip, skip + limit)
+        ),
     Tweet: (_, { id }, context) =>
         Promise.resolve(context.datastore.tweets.find(tweet => tweet.id == id)),
 };

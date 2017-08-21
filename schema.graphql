@@ -42,7 +42,7 @@ scalar Date
 
 type Query {
     Tweet(id: ID!): Tweet
-    Tweets(limit: Int, sort_field: String, sort_order: String): [Tweet]
+    Tweets(limit: Int, skip: Int, sort_field: String, sort_order: String): [Tweet]
     TweetsMeta: Meta
     User(id: ID!): User
     Notifications(limit: Int): [Notification]
