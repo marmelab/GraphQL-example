@@ -11,7 +11,7 @@ type User {
     last_name: String
     full_name: String
     name: String @deprecated
-    avatar_url: Url
+    avatar_url: String
 }
 `;
 

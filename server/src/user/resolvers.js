@@ -1,8 +1,8 @@
 import DataLoader from 'dataloader';
 
 export const Query = {
-    User: (_, { id }, context) =>
-        Promise.resolve(context.datastore.users.find(tweet => tweet.id === id)),
+    User: (_, __, context) =>
+        Promise.resolve(context.datastore.users.find(user => user.id === context.author_id)),
 };
 export const User = {
     full_name: author =>

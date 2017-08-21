@@ -9,14 +9,14 @@ export default {
             username: 'johndoe',
             first_name: 'John',
             last_name: 'Doe',
-            avatar_url: 'acme.com/avatars/10',
+            avatar_url: 'https://material-ui-1dab0.firebaseapp.com/build/fa158bc2d4774f4ae14cbbec7730af23.jpg',
         },
         {
             id: 11,
             username: 'janedoe',
             first_name: 'Jane',
             last_name: 'Doe',
-            avatar_url: 'acme.com/avatars/11',
+            avatar_url: 'https://material-ui-1dab0.firebaseapp.com/build/b16427bb030d63fd8e52ea84defda1d1.jpg',
         },
     ],
     stats: [

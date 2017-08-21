@@ -44,7 +44,7 @@ type Query {
     Tweet(id: ID!): Tweet
     Tweets(limit: Int, sort_field: String, sort_order: String): [Tweet]
     TweetsMeta: Meta
-    User: User
+    User(id: ID!): User
     Notifications(limit: Int): [Notification]
     NotificationsMeta: Meta
 }
