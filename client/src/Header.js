@@ -7,8 +7,7 @@ import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
-import { compose, gql, graphql } from 'react-apollo';
-import { userFragment } from './fragments';
+import { Link } from 'react-router-dom';
 
 const styleSheet = createStyleSheet(theme => ({
     title: {
@@ -16,16 +15,16 @@ const styleSheet = createStyleSheet(theme => ({
     }
 }));
 
-const Header = ({ classes, data: { currentUser } }) => (
+const Header = ({ classes, currentUser }) => (
     <AppBar position="static" color="default">
         <Toolbar>
             {currentUser &&
                 <Avatar alt={currentUser.full_name} src={currentUser.avatar_url} />
             }
-            <Typography type="title" color="inherit" className={classes.title}>
+            <Typography component="span" type="title" color="inherit" className={classes.title}>
                 Home
             </Typography>
-            <IconButton>
+            <IconButton component={Link} to="/new">
                 <ModeEditIcon /> 
             </IconButton>
         </Toolbar>
@@ -42,17 +41,4 @@ Header.propTypes = {
     }),
 };
 
-const query = gql`
-    query headerQuery {
-        currentUser: User {
-            ...UserFields
-        }
-    }
-
-    ${userFragment}
-`
-
-export default compose(
-    graphql(query),
-    withStyles(styleSheet),
-)(Header);
+export default withStyles(styleSheet)(Header);

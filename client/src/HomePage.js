@@ -42,7 +42,7 @@ HomePage.defaultProps = {
     tweets: [],
 };
 
-const query = gql`
+export const homePageQuery = gql`
     query homePageQuery {    
         tweets: Tweets(limit:10, sort_field:"date", sort_order:"desc") {
             id
@@ -63,4 +63,4 @@ const query = gql`
     ${userFragment}
 `;
 
-export default graphql(query)(HomePage);
+export default graphql(homePageQuery)(HomePage);

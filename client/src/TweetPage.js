@@ -36,7 +36,7 @@ TweetPage.propTypes = {
     }),
 };
 
-const query = gql`
+export const tweetPageQuery = gql`
     query tweetPageQuery($id: ID!) {    
         tweet: Tweet(id: $id) {
             id
@@ -57,6 +57,6 @@ const query = gql`
     ${userFragment}
 `;
 
-export default graphql(query, {
+export default graphql(tweetPageQuery, {
     options: ({ match }) => ({ variables: { id: match.params.id } }) 
 })(TweetPage);
