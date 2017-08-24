@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import { LinearProgress } from 'material-ui/Progress';
@@ -6,6 +7,7 @@ import { compose, gql, graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
 import { userFragment } from './fragments';
 import { homePageQuery, homePageQueryVariables } from './HomePage';
+import { notify as notifyAction } from './notifications';
 
 const styleSheet = createStyleSheet(theme => ({
     container: {
@@ -92,11 +94,13 @@ const mutation = gql`
 
 export default compose(
     withRouter,
+    connect(null, { notify: notifyAction }),
     graphql(mutation, {
-        props: ({ mutate, ownProps: { currentUser, history } }) => ({
+        name: 'createTweet',
+        props: ({ createTweet, ownProps: { currentUser, history, notify } }) => ({
             redirectToHome: () => history.push('/'),
             submit: body => {
-                mutate({
+                createTweet({
                     variables: { body },
                     optimisticResponse: {
                         __typename: 'Mutation',
@@ -129,6 +133,9 @@ export default compose(
                         // Write our data back to the cache.
                         store.writeQuery({ query: homePageQuery, variables: homePageQueryVariables, data });
                     }
+                }).catch(error => {
+                    console.error(error);
+                    notify(`Sorry, we weren't able to send your tweet. Please check your network connection and retry.`);
                 });
             }
         }),

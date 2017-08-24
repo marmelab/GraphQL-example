@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { compose, gql, graphql } from 'react-apollo';
 import { LinearProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
+import Notification from './Notification';
 import Tweet from './Tweet';
 import { userFragment } from './fragments';
+import { removeNotification as removeNotificationAction } from './notifications';
 
 const styleSheet = createStyleSheet(theme => ({
     button: {
@@ -23,15 +26,31 @@ class HomePage extends Component {
             this.setState(({ skip }) => ({ skip: skip + 5 }));
         });
     }
+
+    handleNotificationClose = notificationId => {
+        this.props.removeNotification(notificationId);
+    }
+
     render() {
-        const { classes, loading, tweets } = this.props; 
+        const { classes, loading, notifications, tweets } = this.props; 
         return (
             <div>
                 {loading && <LinearProgress />}
-                {!loading && tweets.map(tweet => <Tweet key={tweet.id} tweet={tweet} showDetailsLink /> )}
+                {!loading && tweets.map(tweet =>
+                    <Tweet key={tweet.id} tweet={tweet} showDetailsLink />
+                )}
+
                 <Button onClick={this.handleClick} className={classes.button}>
                     Load more
                 </Button>
+
+                {notifications.map(notification =>
+                    <Notification
+                        key={notification.id}
+                        onClose={this.handleNotificationClose}
+                        notification={notification}
+                    />
+                )}
             </div>
         );
     }
@@ -89,7 +108,10 @@ export const homePageQuery = gql`
 
 export const homePageQueryVariables = { limit: 5, skip: 0 };
 
+const mapStateToProps = state => ({ notifications: state.notifications });
+
 export default compose(
+    connect(mapStateToProps, { removeNotification: removeNotificationAction }),
     graphql(homePageQuery, {
         options: {
             variables: homePageQueryVariables,
