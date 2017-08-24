@@ -32,7 +32,6 @@ export const Mutation = {
 
         context.datastore.tweets.push(newTweet);
         context.datastore.stats.push(newTweetStats);
-        return Promise.reject(`Because you can't`);
         return Promise.resolve(newTweet);
     },
 };

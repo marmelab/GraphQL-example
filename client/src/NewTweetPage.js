@@ -5,7 +5,7 @@ import Button from 'material-ui/Button';
 import { LinearProgress } from 'material-ui/Progress';
 import { compose, gql, graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
-import { userFragment } from './fragments';
+import { userFragment, tweetFragment } from './fragments';
 import { homePageQuery, homePageQueryVariables } from './HomePage';
 import { notify as notifyAction } from './notifications';
 
@@ -74,22 +74,12 @@ class NewTweetPage extends Component {
 const mutation = gql`
     mutation createTweet($body: String!) {
         createTweet(body: $body) {
-            id
-            body
-            date
-            Author {
-                ...UserFields
-            }
-            Stats {
-                views
-                likes
-                retweets
-                responses
-            }
+            ...TweetFields
         }
     }
 
     ${userFragment}
+    ${tweetFragment}
 `;
 
 export default compose(
@@ -118,6 +108,7 @@ export default compose(
                             },
                             Stats: {
                                 __typename: 'Stats',
+                                tweet_id: 'newTweet',
                                 views: 0,
                                 likes: 0,
                                 retweets: 0,

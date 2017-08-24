@@ -4,6 +4,7 @@ type Stat {
     likes: Int
     retweets: Int
     responses: Int
+    tweet_id: Int
 }
 `;
 

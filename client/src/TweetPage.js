@@ -4,7 +4,7 @@ import { gql, graphql } from 'react-apollo';
 import { LinearProgress } from 'material-ui/Progress';
 
 import Tweet from './Tweet';
-import { userFragment } from './fragments';
+import { userFragment, tweetFragment } from './fragments';
 
 const TweetPage = ({ data: { loading, tweet } }) => (
     <div>
@@ -39,22 +39,12 @@ TweetPage.propTypes = {
 export const tweetPageQuery = gql`
     query tweetPageQuery($id: ID!) {    
         tweet: Tweet(id: $id) {
-            id
-            body
-            date
-            Author {
-                ...UserFields
-            }
-            Stats {
-                views
-                likes
-                retweets
-                responses
-            }
+            ...TweetFields
         }
     }
 
     ${userFragment}
+    ${tweetFragment}
 `;
 
 export default graphql(tweetPageQuery, {

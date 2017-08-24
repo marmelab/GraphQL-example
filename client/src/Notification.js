@@ -8,7 +8,7 @@ class Notification extends Component {
     }
 
     render() {
-        const { notification: { id, message } } = this.props;
+        const { notification: { message } } = this.props;
 
         return (
             <Snackbar

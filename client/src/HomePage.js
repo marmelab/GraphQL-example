@@ -8,7 +8,7 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import Notification from './Notification';
 import Tweet from './Tweet';
-import { userFragment } from './fragments';
+import { tweetFragment, userFragment } from './fragments';
 import { removeNotification as removeNotificationAction } from './notifications';
 
 const styleSheet = createStyleSheet(theme => ({
@@ -88,22 +88,12 @@ HomePage.defaultProps = {
 export const homePageQuery = gql`
     query homePageQuery($limit: Int!, $skip: Int!) {    
         tweets: Tweets(limit:$limit, skip:$skip, sort_field:"date", sort_order:"desc") {
-            id
-            body
-            date
-            Author {
-                ...UserFields
-            }
-            Stats {
-                views
-                likes
-                retweets
-                responses
-            }
+            ...TweetFields
         }
     }
 
     ${userFragment}
+    ${tweetFragment}
 `;
 
 export const homePageQueryVariables = { limit: 5, skip: 0 };

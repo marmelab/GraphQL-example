@@ -8,3 +8,21 @@ export const userFragment = gql`
         avatar_url
     }
 `;
+
+export const tweetFragment = gql`
+    fragment TweetFields on Tweet {
+        id
+        body
+        date
+        Author {
+            ...UserFields
+        }
+        Stats {
+            tweet_id
+            views
+            likes
+            retweets
+            responses
+        }
+    }
+`;

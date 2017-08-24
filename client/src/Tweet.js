@@ -90,7 +90,7 @@ const Tweet = ({ classes, tweet, showDetailsLink }) => (
 
 Tweet.propTypes = {
     classes: PropTypes.object.isRequired,
-    showDetailsLink: PropTypes.bool.isRequired,
+    showDetailsLink: PropTypes.bool,
     tweet: PropTypes.shape({
         id: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
