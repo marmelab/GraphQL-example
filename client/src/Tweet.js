@@ -110,21 +110,4 @@ Tweet.propTypes = {
     }).isRequired,
 };
 
-Tweet.defaultProps = {
-    tweet: {
-        author: {
-            username: '@toto',
-            full_name: 'Toto',
-            avatar_url: 'https://material-ui-1dab0.firebaseapp.com/build/fa158bc2d4774f4ae14cbbec7730af23.jpg',
-        },
-        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-        date: new Date(),
-        stats: {
-            responses: 3,
-            retweets: 42,
-            likes: 69,
-        }
-    },
-};
-
 export default withStyles(styleSheet)(Tweet);

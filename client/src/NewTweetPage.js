@@ -5,7 +5,7 @@ import { LinearProgress } from 'material-ui/Progress';
 import { compose, gql, graphql } from 'react-apollo';
 import { withRouter } from 'react-router';
 import { userFragment } from './fragments';
-import { homePageQuery } from './HomePage';
+import { homePageQuery, homePageQueryVariables } from './HomePage';
 
 const styleSheet = createStyleSheet(theme => ({
     container: {
@@ -32,6 +32,10 @@ class NewTweetPage extends Component {
     handleSubmit = () => {
         this.setState({ saving: true }, () => {
             this.props.submit(this.state.body);
+            // The submit promise will only resolve once the server has anwsered.
+            // As we have an optimistic response setup, we don't wait for the promise
+            // to be resolved and redirect the user to the list immediatly
+            this.props.redirectToList();
         });
     }
 
@@ -90,6 +94,7 @@ export default compose(
     withRouter,
     graphql(mutation, {
         props: ({ mutate, ownProps: { currentUser, history } }) => ({
+            redirectToList: () => history.push('/'),
             submit: body => {
                 mutate({
                     variables: { body },
@@ -98,7 +103,7 @@ export default compose(
                         createTweet: {
                             __typename: 'Tweet',
                             id: 'newTweet',
-                            date: new Date(),
+                            date: new Date().toISOString(),
                             body,
                             Author: {
                                 __typename: 'User',
@@ -118,15 +123,13 @@ export default compose(
                     },
                     update: (store, { data: { createTweet } }) => {
                         // Read the data from our cache for this query.
-                        const data = store.readQuery({ query: homePageQuery });
+                        const data = store.readQuery({ query: homePageQuery, variables: homePageQueryVariables });
                         // Add our new tweet from the mutation to the beginning.
                         data.tweets.unshift(createTweet);
                         // Write our data back to the cache.
-                        store.writeQuery({ query: homePageQuery, data });
+                        store.writeQuery({ query: homePageQuery, variables: homePageQueryVariables, data });
                     }
                 });
-
-                history.push('/');
             }
         }),
     }),

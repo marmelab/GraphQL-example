@@ -2,7 +2,8 @@ export const Query = {
     Tweets: (_, { limit = 5, skip = 0 }, context) =>
         Promise.resolve(
             context.datastore.tweets
-                .sort((a, b) => a - b)
+                .slice()
+                .sort((a, b) => b.date - a.date)
                 .slice(skip, skip + limit)
         ),
     Tweet: (_, { id }, context) =>

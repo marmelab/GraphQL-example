@@ -1,15 +1,22 @@
+import subMinutes from 'date-fns/sub_minutes';
+import subHours from 'date-fns/sub_hours';
+import subDays from 'date-fns/sub_days';
+import subMonths from 'date-fns/sub_months';
+
+const today = new Date();
+
 export default {
     tweets: [
-        { id: 1, body: 'Lorem Ipsum', date: new Date(), author_id: 10 },
-        { id: 2, body: 'Sic dolor amet', date: new Date(), author_id: 11 },
-        { id: 3, body: 'Lorem Ipsum', date: new Date(), author_id: 10 },
-        { id: 4, body: 'Sic dolor amet', date: new Date(), author_id: 11 },
-        { id: 5, body: 'Lorem Ipsum', date: new Date(), author_id: 10 },
-        { id: 6, body: 'Sic dolor amet', date: new Date(), author_id: 11 },
-        { id: 7, body: 'Lorem Ipsum', date: new Date(), author_id: 10 },
-        { id: 8, body: 'Sic dolor amet', date: new Date(), author_id: 11 },
-        { id: 9, body: 'Lorem Ipsum', date: new Date(), author_id: 10 },
-        { id: 10, body: 'Sic dolor amet', date: new Date(), author_id: 11 },
+        { id: 1, body: 'Lorem Ipsum', date: subMinutes(today, 1), author_id: 10 },
+        { id: 2, body: 'Sic dolor amet', date: subMinutes(today, 25), author_id: 11 },
+        { id: 3, body: 'Lorem Ipsum', date: subMinutes(today, 45), author_id: 10 },
+        { id: 4, body: 'Sic dolor amet', date: subHours(today, 3), author_id: 11 },
+        { id: 5, body: 'Lorem Ipsum', date: subHours(today, 7), author_id: 10 },
+        { id: 6, body: 'Sic dolor amet', date: subDays(today, 1), author_id: 11 },
+        { id: 7, body: 'Lorem Ipsum', date: subDays(today, 5), author_id: 10 },
+        { id: 8, body: 'Sic dolor amet', date: subDays(today, 11), author_id: 11 },
+        { id: 9, body: 'Lorem Ipsum', date: subDays(today, 23), author_id: 10 },
+        { id: 10, body: 'Sic dolor amet', date: subMonths(today, 3), author_id: 11 },
     ],
     users: [
         {

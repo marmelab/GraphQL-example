@@ -87,23 +87,30 @@ export const homePageQuery = gql`
     ${userFragment}
 `;
 
+export const homePageQueryVariables = { limit: 5, skip: 0 };
+
+const sortTweets = tweets =>
+    tweets
+        ? tweets.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
+        : [];
+
 export default compose(
     graphql(homePageQuery, {
         options: {
-            variables: { limit: 5, skip: 0 },
+            variables: homePageQueryVariables,
         },
         props: ({ data: { loading, tweets, fetchMore } }) => ({
             loading,
-            tweets,
+            tweets: sortTweets(tweets),
             loadMore: skip =>
                 fetchMore({
                     variables: { limit: 5, skip },
                     updateQuery: (previousResult, { fetchMoreResult }) => ({
                         ...previousResult,
-                        tweets: [
+                        tweets: sortTweets([
                             ...previousResult.tweets,
                             ...fetchMoreResult.tweets,
-                        ],
+                        ]),
                     }),
                 })
         }),
