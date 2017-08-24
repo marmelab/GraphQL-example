@@ -89,11 +89,6 @@ export const homePageQuery = gql`
 
 export const homePageQueryVariables = { limit: 5, skip: 0 };
 
-const sortTweets = tweets =>
-    tweets
-        ? tweets.slice().sort((a, b) => new Date(b.date) - new Date(a.date))
-        : [];
-
 export default compose(
     graphql(homePageQuery, {
         options: {
@@ -101,16 +96,16 @@ export default compose(
         },
         props: ({ data: { loading, tweets, fetchMore } }) => ({
             loading,
-            tweets: sortTweets(tweets),
+            tweets,
             loadMore: skip =>
                 fetchMore({
                     variables: { limit: 5, skip },
                     updateQuery: (previousResult, { fetchMoreResult }) => ({
                         ...previousResult,
-                        tweets: sortTweets([
+                        tweets: [
                             ...previousResult.tweets,
                             ...fetchMoreResult.tweets,
-                        ]),
+                        ],
                     }),
                 })
         }),

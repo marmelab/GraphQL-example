@@ -35,7 +35,7 @@ class NewTweetPage extends Component {
             // The submit promise will only resolve once the server has anwsered.
             // As we have an optimistic response setup, we don't wait for the promise
             // to be resolved and redirect the user to the list immediatly
-            this.props.redirectToList();
+            this.props.redirectToHome();
         });
     }
 
@@ -94,7 +94,7 @@ export default compose(
     withRouter,
     graphql(mutation, {
         props: ({ mutate, ownProps: { currentUser, history } }) => ({
-            redirectToList: () => history.push('/'),
+            redirectToHome: () => history.push('/'),
             submit: body => {
                 mutate({
                     variables: { body },
