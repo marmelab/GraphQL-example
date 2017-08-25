@@ -11,6 +11,9 @@ import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import { Link } from 'react-router-dom';
 
 const styleSheet = createStyleSheet(theme => ({
+    link: {
+        textDecoration: 'none',
+    },
     container: {
         display: 'flex',
         flexDirection: 'row',
@@ -51,41 +54,42 @@ const styleSheet = createStyleSheet(theme => ({
 }));
 
 const Tweet = ({ classes, tweet, showDetailsLink }) => (
-    <Card>
-        <CardContent className={classes.container}>
-            <Avatar className={classes.avatar} alt={tweet.Author.full_name} src={tweet.Author.avatar_url} />
-            <div>
-                <span className={classes.fullName}>
-                    {tweet.Author.full_name}
-                </span>
-                <span className={classes.userName}>
-                    {tweet.Author.username}
-                </span>
-                <span className={classes.separator}>-</span>
-                <span className={classes.date}>
-                    {distanceInWordsToNow(tweet.date)}
-                </span>
-                <Typography component="p">
-                    {tweet.body}
-                </Typography>
-                {showDetailsLink && <Link to={`/${tweet.id}`}>Details</Link>}
-                <div className={classes.buttons}>
-                    <div className={classes.stats}>
-                        <ChatBubbleOutlineIcon className={classes.icon} /> 
-                        {tweet.Stats.responses}
-                    </div>
-                    <div className={classes.stats}>
-                        <CachedIcon className={classes.icon} />
-                        {tweet.Stats.retweets}
-                    </div>
-                    <div className={classes.stats}>
-                        <FavoriteBorderIcon className={classes.icon} />
-                        {tweet.Stats.likes}
+    <Link to={`/${tweet.id}`} className={classes.link}>
+        <Card>
+            <CardContent className={classes.container}>
+                <Avatar className={classes.avatar} alt={tweet.Author.full_name} src={tweet.Author.avatar_url} />
+                <div>
+                    <span className={classes.fullName}>
+                        {tweet.Author.full_name}
+                    </span>
+                    <span className={classes.userName}>
+                        {tweet.Author.username}
+                    </span>
+                    <span className={classes.separator}>-</span>
+                    <span className={classes.date}>
+                        {distanceInWordsToNow(tweet.date)}
+                    </span>
+                    <Typography component="p">
+                        {tweet.body}
+                    </Typography>
+                    <div className={classes.buttons}>
+                        <div className={classes.stats}>
+                            <ChatBubbleOutlineIcon className={classes.icon} /> 
+                            {tweet.Stats.responses}
+                        </div>
+                        <div className={classes.stats}>
+                            <CachedIcon className={classes.icon} />
+                            {tweet.Stats.retweets}
+                        </div>
+                        <div className={classes.stats}>
+                            <FavoriteBorderIcon className={classes.icon} />
+                            {tweet.Stats.likes}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </CardContent>
-    </Card>
+            </CardContent>
+        </Card>
+    </Link>
 );
 
 Tweet.propTypes = {
