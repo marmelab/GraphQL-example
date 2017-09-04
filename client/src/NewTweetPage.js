@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import { LinearProgress } from 'material-ui/Progress';
 import { compose, gql, graphql } from 'react-apollo';
@@ -9,7 +9,7 @@ import { userFragment, tweetFragment } from './fragments';
 import { homePageQuery, homePageQueryVariables } from './HomePage';
 import { notify as notifyAction } from './notifications';
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = createMuiTheme(theme => ({
     container: {
         margin: '1rem',
     },

@@ -6,10 +6,10 @@ import IconButton from 'material-ui/IconButton';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles, createMuiTheme } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = createMuiTheme(theme => ({
     title: {
         margin: '0 auto',
     }
