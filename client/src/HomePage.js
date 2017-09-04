@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { compose, gql, graphql } from 'react-apollo';
 import { LinearProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles, createMuiTheme } from 'material-ui/styles';
 
 import Notification from './Notification';
 import Tweet from './Tweet';
 import { tweetFragment, userFragment } from './fragments';
 import { removeNotification as removeNotificationAction } from './notifications';
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = createMuiTheme(theme => ({
     button: {
         textAlign: 'center',
         width: '100%',

@@ -6,11 +6,11 @@ import Typography from 'material-ui/Typography';
 import CachedIcon from 'material-ui-icons/Cached';
 import FavoriteBorderIcon from 'material-ui-icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from 'material-ui-icons/ChatBubbleOutline';
-import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { withStyles, createMuiTheme } from 'material-ui/styles';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import { Link } from 'react-router-dom';
 
-const styleSheet = createStyleSheet(theme => ({
+const styleSheet = createMuiTheme(theme => ({
     link: {
         textDecoration: 'none',
     },
